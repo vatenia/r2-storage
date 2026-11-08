@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
-use Elviweb\R2Storage\R2Client;
+use Vatenia\R2Storage\R2Client;
 
 /**
  * Builds a storage from settings at runtime, so the driver can come from an environment

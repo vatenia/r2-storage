@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
-use Elviweb\R2Storage\Stream;
+use Vatenia\R2Storage\Stream;
 
 /** Files on local disk, e.g. public/uploads in development. */
 final class LocalStorage implements StorageInterface

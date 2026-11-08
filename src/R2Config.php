@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage;
+namespace Vatenia\R2Storage;
 
 /**
  * Connection settings for an R2 account (or any S3-compatible service).

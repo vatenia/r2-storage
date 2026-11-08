@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Tests\Unit;
+namespace Vatenia\R2Storage\Tests\Unit;
 
-use Elviweb\R2Storage\Signer;
 use PHPUnit\Framework\TestCase;
+use Vatenia\R2Storage\Signer;
 
 /**
  * Checked against AWS's published Signature V4 examples, so the hand-written signing is

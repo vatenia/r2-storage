@@ -1,9 +1,9 @@
 {
-    "name": "elviweb/r2-storage",
+    "name": "vatenia/r2-storage",
     "description": "Cloudflare R2 (S3 API) file storage for PHP and Symfony, without the AWS SDK: signed uploads, deletes, presigned links, and the same interface for local disk in development.",
     "type": "symfony-bundle",
     "license": "MIT",
-    "authors": [{ "name": "Elviweb" }],
+    "authors": [{ "name": "Vatenia" }],
     "require": {
         "php": ">=8.1",
         "ext-fileinfo": "*",
@@ -24,10 +24,10 @@
         "symfony/http-client": "The HTTP client the R2 client sends its requests with"
     },
     "autoload": {
-        "psr-4": { "Elviweb\\R2Storage\\": "src/" }
+        "psr-4": { "Vatenia\\R2Storage\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Elviweb\\R2Storage\\Tests\\": "tests/" }
+        "psr-4": { "Vatenia\\R2Storage\\Tests\\": "tests/" }
     },
     "scripts": {
         "test": "phpunit",

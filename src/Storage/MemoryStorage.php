@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
-use Elviweb\R2Storage\Stream;
+use Vatenia\R2Storage\Stream;
 
 /** Files in memory, gone at the end of the process: for tests (driver "memory"). */
 final class MemoryStorage implements StorageInterface

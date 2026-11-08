@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Tests\Unit;
+namespace Vatenia\R2Storage\Tests\Unit;
 
-use Elviweb\R2Storage\ElviwebR2StorageBundle;
-use Elviweb\R2Storage\R2Client;
-use Elviweb\R2Storage\Storage\DirectUploads;
-use Elviweb\R2Storage\Storage\LocalStorage;
-use Elviweb\R2Storage\Storage\MemoryStorage;
-use Elviweb\R2Storage\Storage\R2Storage;
-use Elviweb\R2Storage\Storage\StorageInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Vatenia\R2Storage\R2Client;
+use Vatenia\R2Storage\Storage\DirectUploads;
+use Vatenia\R2Storage\Storage\LocalStorage;
+use Vatenia\R2Storage\Storage\MemoryStorage;
+use Vatenia\R2Storage\Storage\R2Storage;
+use Vatenia\R2Storage\Storage\StorageInterface;
+use Vatenia\R2Storage\VateniaR2StorageBundle;
 
 final class BundleTest extends TestCase
 {
@@ -31,10 +31,10 @@ final class BundleTest extends TestCase
         $container->setParameter('kernel.environment', 'test');
         $container->setParameter('kernel.build_dir', sys_get_temp_dir());
         $container->set('http_client', new MockHttpClient());
-        $extension = (new ElviwebR2StorageBundle())->getContainerExtension();
+        $extension = (new VateniaR2StorageBundle())->getContainerExtension();
         \assert(null !== $extension);
         $container->registerExtension($extension);
-        $container->loadFromExtension('elviweb_r2_storage', $config);
+        $container->loadFromExtension('vatenia_r2_storage', $config);
         $container->compile(true);
 
         return $container;
@@ -50,9 +50,9 @@ final class BundleTest extends TestCase
             ],
         ], ['TEST_R2_ENDPOINT' => 'https://acc.r2.cloudflarestorage.com', 'TEST_STORAGE_DRIVER' => 'local']);
 
-        self::assertInstanceOf(LocalStorage::class, $container->get('elviweb_r2_storage.storage.public'), 'driver from the env variable');
-        self::assertInstanceOf(R2Storage::class, $container->get('elviweb_r2_storage.storage.private'));
-        $private = $container->get('elviweb_r2_storage.storage.private');
+        self::assertInstanceOf(LocalStorage::class, $container->get('vatenia_r2_storage.storage.public'), 'driver from the env variable');
+        self::assertInstanceOf(R2Storage::class, $container->get('vatenia_r2_storage.storage.private'));
+        $private = $container->get('vatenia_r2_storage.storage.private');
         self::assertInstanceOf(R2Storage::class, $private);
         self::assertInstanceOf(R2Client::class, $private->client());
     }
@@ -64,11 +64,11 @@ final class BundleTest extends TestCase
         $container->setParameter('kernel.project_dir', sys_get_temp_dir());
         $container->setParameter('kernel.environment', 'test'); // both read by the extension on Symfony 6.4
         $container->setParameter('kernel.build_dir', sys_get_temp_dir());
-        $extension = (new ElviwebR2StorageBundle())->getContainerExtension();
+        $extension = (new VateniaR2StorageBundle())->getContainerExtension();
         \assert(null !== $extension);
         $extension->load([['storages' => ['public' => ['driver' => 'local'], 'private' => ['driver' => 'r2', 'bucket' => 'site-private']]]], $container);
 
-        self::assertSame('elviweb_r2_storage.storage.public', (string) $container->getAlias(StorageInterface::class), 'the first storage is the default');
+        self::assertSame('vatenia_r2_storage.storage.public', (string) $container->getAlias(StorageInterface::class), 'the first storage is the default');
         self::assertTrue($container->hasAlias(StorageInterface::class.' $privateStorage'), 'injectable by name');
         self::assertTrue($container->hasAlias(DirectUploads::class.' $privateStorage'), 'direct uploads by name');
         self::assertTrue($container->hasAlias(R2Client::class));
@@ -89,21 +89,21 @@ final class BundleTest extends TestCase
                 'test' => ['driver' => 'memory'],
             ],
         ]);
-        $private = $container->get('elviweb_r2_storage.storage.private');
+        $private = $container->get('vatenia_r2_storage.storage.private');
         self::assertInstanceOf(R2Storage::class, $private);
         self::assertStringStartsWith('http://s3.app.local/school-private/a.pdf?', $private->url('a.pdf'), 'links for the browser-facing address');
         self::assertSame('http://minio:9000/school-private/a.pdf', $private->client()->objectUrl('school-private', 'a.pdf'));
-        self::assertInstanceOf(MemoryStorage::class, $container->get('elviweb_r2_storage.storage.test'));
-        self::assertSame($container->get('elviweb_r2_storage.storage.private'), $container->get('elviweb_r2_storage.storage.private.direct_uploads'));
+        self::assertInstanceOf(MemoryStorage::class, $container->get('vatenia_r2_storage.storage.test'));
+        self::assertSame($container->get('vatenia_r2_storage.storage.private'), $container->get('vatenia_r2_storage.storage.private.direct_uploads'));
 
         $this->expectException(\LogicException::class);
-        $container->get('elviweb_r2_storage.storage.test.direct_uploads');
+        $container->get('vatenia_r2_storage.storage.test.direct_uploads');
     }
 
     public function testExistingConfigWithoutPresignEndpoint(): void
     {
         $container = $this->container(['r2' => ['endpoint' => 'https://acc.r2.cloudflarestorage.com', 'access_key_id' => 'AKID', 'secret_access_key' => 'SECRET'], 'storages' => ['images' => ['driver' => 'local', 'bucket' => 'imgs', 'public_url' => 'https://img.example.com', 'directory' => sys_get_temp_dir(), 'local_url' => '/img']]]);
-        $images = $container->get('elviweb_r2_storage.storage.images');
+        $images = $container->get('vatenia_r2_storage.storage.images');
         self::assertInstanceOf(LocalStorage::class, $images);
         self::assertSame('/img/a.png', $images->url('a.png'));
     }

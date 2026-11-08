@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
 /**
  * Where an app keeps its files. The same calls work on local disk (development), in memory

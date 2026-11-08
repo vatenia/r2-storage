@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Tests\Unit;
+namespace Vatenia\R2Storage\Tests\Unit;
 
-use Elviweb\R2Storage\ContentDisposition;
-use Elviweb\R2Storage\R2Client;
-use Elviweb\R2Storage\R2Config;
-use Elviweb\R2Storage\R2Exception;
-use Elviweb\R2Storage\Signer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
+use Vatenia\R2Storage\ContentDisposition;
+use Vatenia\R2Storage\R2Client;
+use Vatenia\R2Storage\R2Config;
+use Vatenia\R2Storage\R2Exception;
+use Vatenia\R2Storage\Signer;
 
 final class R2ClientTest extends TestCase
 {

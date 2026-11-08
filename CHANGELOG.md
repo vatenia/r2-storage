@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.0
+
+The package is renamed, with nothing else changed: the company behind it was renamed from Elviweb to
+Vatenia.
+
+- Composer package `elviweb/r2-storage` → **`vatenia/r2-storage`**; repository
+  github.com/vatenia/r2-storage.
+- Namespace `Elviweb\R2Storage` → **`Vatenia\R2Storage`**; bundle class `ElviwebR2StorageBundle` →
+  **`VateniaR2StorageBundle`**.
+- Configuration key `elviweb_r2_storage` → **`vatenia_r2_storage`** (rename
+  `config/packages/elviweb_r2_storage.yaml` and its first line).
+
+**BC break**: to upgrade, `composer remove elviweb/r2-storage && composer require vatenia/r2-storage`,
+then replace `Elviweb\R2Storage` with `Vatenia\R2Storage` in your code and `config/bundles.php`, and
+rename the configuration key. `elviweb/r2-storage` gets no further releases.
+
 ## 0.2.0
 
 Everything an app needs to drop Flysystem + AsyncAws S3 for its buckets.

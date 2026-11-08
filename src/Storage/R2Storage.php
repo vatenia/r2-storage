@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
-use Elviweb\R2Storage\ContentDisposition;
-use Elviweb\R2Storage\R2Client;
-use Elviweb\R2Storage\R2Exception;
-use Elviweb\R2Storage\Stream;
+use Vatenia\R2Storage\ContentDisposition;
+use Vatenia\R2Storage\R2Client;
+use Vatenia\R2Storage\R2Exception;
+use Vatenia\R2Storage\Stream;
 
 /**
  * Files in an R2 bucket. Public when $publicUrl is set (the bucket's custom domain or r2.dev

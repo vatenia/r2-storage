@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage;
+namespace Vatenia\R2Storage;
 
 /**
  * Stream helpers shared by the client and the storages: an upload sends the whole stream, so a

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
 /** Reading a key that isn't in the storage. */
 final class FileNotFoundException extends \RuntimeException

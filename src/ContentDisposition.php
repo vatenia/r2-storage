@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage;
+namespace Vatenia\R2Storage;
 
 /**
  * Content-Disposition values for a file name, any name: "attachment; filename="..."" for plain

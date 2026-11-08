@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage;
+namespace Vatenia\R2Storage;
 
 /**
  * AWS Signature Version 4, as used by R2's S3 API: signed request headers and presigned URLs.

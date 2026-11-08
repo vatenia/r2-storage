@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage;
+namespace Vatenia\R2Storage;
 
 /** Any failure talking to R2 (or a missing setting), with R2's own error code when it sent one. */
 final class R2Exception extends \RuntimeException

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Tests\Integration;
+namespace Vatenia\R2Storage\Tests\Integration;
 
-use Elviweb\R2Storage\ContentDisposition;
-use Elviweb\R2Storage\R2Client;
-use Elviweb\R2Storage\R2Config;
-use Elviweb\R2Storage\Signer;
-use Elviweb\R2Storage\Storage\FileNotFoundException;
-use Elviweb\R2Storage\Storage\R2Storage;
-use Elviweb\R2Storage\Storage\StoreOptions;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Vatenia\R2Storage\ContentDisposition;
+use Vatenia\R2Storage\R2Client;
+use Vatenia\R2Storage\R2Config;
+use Vatenia\R2Storage\Signer;
+use Vatenia\R2Storage\Storage\FileNotFoundException;
+use Vatenia\R2Storage\Storage\R2Storage;
+use Vatenia\R2Storage\Storage\StoreOptions;
 
 /**
  * Against a real S3-compatible server (VersityGW from compose.yaml, or an R2 test bucket):

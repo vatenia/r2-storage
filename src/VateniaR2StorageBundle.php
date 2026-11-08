@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage;
+namespace Vatenia\R2Storage;
 
-use Elviweb\R2Storage\Storage\DirectUploads;
-use Elviweb\R2Storage\Storage\StorageFactory;
-use Elviweb\R2Storage\Storage\StorageInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Vatenia\R2Storage\Storage\DirectUploads;
+use Vatenia\R2Storage\Storage\StorageFactory;
+use Vatenia\R2Storage\Storage\StorageInterface;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 /**
- * Symfony integration. Example (config/packages/elviweb_r2_storage.yaml):
+ * Symfony integration. Example (config/packages/vatenia_r2_storage.yaml):
  *
- *     elviweb_r2_storage:
+ *     vatenia_r2_storage:
  *         r2:
  *             endpoint: '%env(R2_ENDPOINT)%'
  *             access_key_id: '%env(R2_ACCESS_KEY_ID)%'
@@ -40,9 +40,9 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
  *
  * @psalm-suppress DeprecatedInterface
  */
-final class ElviwebR2StorageBundle extends AbstractBundle
+final class VateniaR2StorageBundle extends AbstractBundle
 {
-    protected string $extensionAlias = 'elviweb_r2_storage';
+    protected string $extensionAlias = 'vatenia_r2_storage';
 
     #[\Override]
     public function configure(DefinitionConfigurator $definition): void
@@ -83,21 +83,21 @@ final class ElviwebR2StorageBundle extends AbstractBundle
     {
         $services = $container->services();
 
-        $services->set('elviweb_r2_storage.config', R2Config::class)
+        $services->set('vatenia_r2_storage.config', R2Config::class)
             ->args([$config['r2']['endpoint'], $config['r2']['access_key_id'], $config['r2']['secret_access_key'], $config['r2']['region'], $config['r2']['presign_endpoint']]);
-        $services->set('elviweb_r2_storage.client', R2Client::class)
-            ->args([service('http_client'), service('elviweb_r2_storage.config'), null, $config['r2']['retries']]);
-        $services->alias(R2Client::class, 'elviweb_r2_storage.client');
+        $services->set('vatenia_r2_storage.client', R2Client::class)
+            ->args([service('http_client'), service('vatenia_r2_storage.config'), null, $config['r2']['retries']]);
+        $services->alias(R2Client::class, 'vatenia_r2_storage.client');
 
         $default = $config['default_storage'] ?? array_key_first($config['storages']);
         if (null !== $default && !isset($config['storages'][$default])) {
-            throw new \InvalidArgumentException(sprintf('elviweb_r2_storage.default_storage "%s" is not one of the storages.', $default));
+            throw new \InvalidArgumentException(sprintf('vatenia_r2_storage.default_storage "%s" is not one of the storages.', $default));
         }
         foreach ($config['storages'] as $name => $storage) {
-            $id = 'elviweb_r2_storage.storage.'.$name;
+            $id = 'vatenia_r2_storage.storage.'.$name;
             $services->set($id, StorageInterface::class)
                 ->factory([StorageFactory::class, 'create'])
-                ->args([$storage['driver'], service('elviweb_r2_storage.client'), $storage['bucket'], $storage['public_url'], $storage['directory'], $storage['local_url']])
+                ->args([$storage['driver'], service('vatenia_r2_storage.client'), $storage['bucket'], $storage['public_url'], $storage['directory'], $storage['local_url']])
                 ->public();
             $builder->registerAliasForArgument($id, StorageInterface::class, $name.'Storage');
 
@@ -110,7 +110,7 @@ final class ElviwebR2StorageBundle extends AbstractBundle
             $builder->registerAliasForArgument($id.'.direct_uploads', DirectUploads::class, $name.'Storage');
         }
         if (null !== $default) {
-            $services->alias(StorageInterface::class, 'elviweb_r2_storage.storage.'.$default);
+            $services->alias(StorageInterface::class, 'vatenia_r2_storage.storage.'.$default);
         }
     }
 }

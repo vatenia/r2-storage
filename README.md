@@ -1,4 +1,4 @@
-# elviweb/r2-storage
+# vatenia/r2-storage
 
 File storage on **Cloudflare R2** (its S3 API) for PHP and Symfony, without the AWS SDK.
 The same interface stores files on local disk in development, so switching is a setting.
@@ -17,20 +17,20 @@ The same interface stores files on local disk in development, so switching is a 
 
 ## Install
 
-From [Packagist](https://packagist.org/packages/elviweb/r2-storage):
+From [Packagist](https://packagist.org/packages/vatenia/r2-storage):
 
 ```sh
-composer require elviweb/r2-storage symfony/http-client
+composer require vatenia/r2-storage symfony/http-client
 ```
 
 (To work on the library next to a project, add `{ "type": "path", "url": "../r2-storage" }` to that project's `repositories` for a while.)
 
 ## Symfony
 
-`config/packages/elviweb_r2_storage.yaml`:
+`config/packages/vatenia_r2_storage.yaml`:
 
 ```yaml
-elviweb_r2_storage:
+vatenia_r2_storage:
     r2:
         endpoint: '%env(R2_ENDPOINT)%'                 # https://<account-id>.r2.cloudflarestorage.com
         access_key_id: '%env(R2_ACCESS_KEY_ID)%'
@@ -63,8 +63,8 @@ Real keys go in `.env.local` or `bin/console secrets:set` on the server, never i
 Use an R2 API token limited to the project's buckets ("Object Read & Write").
 
 ```php
-use Elviweb\R2Storage\Storage\StorageInterface;
-use Elviweb\R2Storage\Storage\StoreOptions;
+use Vatenia\R2Storage\Storage\StorageInterface;
+use Vatenia\R2Storage\Storage\StoreOptions;
 
 public function __construct(private StorageInterface $publicStorage, private StorageInterface $privateStorage) {}
 
@@ -96,13 +96,13 @@ rules (letters, digits, `.`, `_`, `-`, `/`; no segment starting with `.`), the s
 
 ### Direct uploads from the browser
 
-A single `PUT`: inject `Elviweb\R2Storage\R2Client` and hand out `presignedPutUrl($bucket, $key, 300)`.
+A single `PUT`: inject `Vatenia\R2Storage\R2Client` and hand out `presignedPutUrl($bucket, $key, 300)`.
 
 Large files, in parts (16 MiB parts, a 2 GB video…): the `r2` driver also implements
 `DirectUploads`. Inject it by the storage's name, `DirectUploads $privateStorage`:
 
 ```php
-use Elviweb\R2Storage\Storage\DirectUploads;
+use Vatenia\R2Storage\Storage\DirectUploads;
 
 public function __construct(private DirectUploads $privateStorage) {}
 
@@ -133,7 +133,7 @@ send to, so they don't implement `DirectUploads`: in Symfony, building a service
 ### Example: a school platform (private + public storages, MinIO in development)
 
 ```yaml
-elviweb_r2_storage:
+vatenia_r2_storage:
     r2:
         endpoint: '%env(S3_ENDPOINT)%'                       # dev: http://minio:9000 (inside Docker)
         presign_endpoint: '%env(default::S3_BROWSER_ENDPOINT)%'   # dev: http://s3.app.local (what browsers reach)
@@ -150,7 +150,7 @@ elviweb_r2_storage:
             public_url: '%env(S3_PUBLIC_ENDPOINT)%'
 
 when@test:
-    elviweb_r2_storage:
+    vatenia_r2_storage:
         storages:
             private: { driver: memory }
             public: { driver: memory }

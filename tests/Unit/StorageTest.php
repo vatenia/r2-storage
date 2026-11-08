@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Tests\Unit;
+namespace Vatenia\R2Storage\Tests\Unit;
 
-use Elviweb\R2Storage\R2Client;
-use Elviweb\R2Storage\R2Config;
-use Elviweb\R2Storage\Storage\DirectUploads;
-use Elviweb\R2Storage\Storage\FileNotFoundException;
-use Elviweb\R2Storage\Storage\Key;
-use Elviweb\R2Storage\Storage\LocalStorage;
-use Elviweb\R2Storage\Storage\MemoryStorage;
-use Elviweb\R2Storage\Storage\R2Storage;
-use Elviweb\R2Storage\Storage\StorageFactory;
-use Elviweb\R2Storage\Storage\StorageInterface;
-use Elviweb\R2Storage\Storage\StoreOptions;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
+use Vatenia\R2Storage\R2Client;
+use Vatenia\R2Storage\R2Config;
+use Vatenia\R2Storage\Storage\DirectUploads;
+use Vatenia\R2Storage\Storage\FileNotFoundException;
+use Vatenia\R2Storage\Storage\Key;
+use Vatenia\R2Storage\Storage\LocalStorage;
+use Vatenia\R2Storage\Storage\MemoryStorage;
+use Vatenia\R2Storage\Storage\R2Storage;
+use Vatenia\R2Storage\Storage\StorageFactory;
+use Vatenia\R2Storage\Storage\StorageInterface;
+use Vatenia\R2Storage\Storage\StoreOptions;
 
 final class StorageTest extends TestCase
 {

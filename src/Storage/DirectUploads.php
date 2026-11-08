@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elviweb\R2Storage\Storage;
+namespace Vatenia\R2Storage\Storage;
 
 /**
  * A storage browsers can upload to directly, in parts, through presigned links: the file never
